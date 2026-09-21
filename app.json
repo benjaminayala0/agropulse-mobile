@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "AgroPulse",
+    "slug": "agropulse",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "agropulse",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#1E3A2F"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.agropulse.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "AgroPulse necesita tu ubicación para verificar si estás dentro de un lote agrícola."
+      }
+    },
+    "android": {
+      "package": "com.agropulse.app",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
