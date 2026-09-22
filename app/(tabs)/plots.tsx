@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../src/theme/colors';
 
@@ -40,6 +41,8 @@ const MOCK_PLOTS = [
 ];
 
 export default function PlotsScreen() {
+  const router = useRouter();
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -47,7 +50,11 @@ export default function PlotsScreen() {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.plotCard} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.plotCard}
+            activeOpacity={0.8}
+            onPress={() => router.push(('/plot/' + item.id) as any)}
+          >
             <View style={styles.cardHeader}>
               <View>
                 <Text style={styles.plotName}>{item.name}</Text>
