@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     color: colors.textPrimary,
-    marginBottom: 12,
+    flexShrink: 1,
   },
   metricsGrid: {
     flexDirection: 'row',
@@ -373,6 +373,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 6,
     marginBottom: 16,
   },
   chartLegend: {

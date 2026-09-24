@@ -82,7 +82,7 @@ export default function MapScreen() {
             <Ionicons name="map-outline" size={20} color={colors.white} />
           </View>
           <View style={styles.headerInfo}>
-            <Text style={styles.estanciaName}>Estancia Didáctica Concordia</Text>
+            <Text style={styles.estanciaName}>Estancia Concordia</Text>
             <Text style={styles.regionName}>Concordia, Entre Ríos · 3 Lotes</Text>
           </View>
         </View>

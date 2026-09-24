@@ -61,7 +61,7 @@ export default function AccountScreen() {
         <View style={styles.orgRow}>
           <Ionicons name="business-outline" size={24} color={colors.primary} />
           <View style={styles.orgDetails}>
-            <Text style={styles.orgName}>{activeOrg?.name || 'Estancia Didáctica Concordia'}</Text>
+            <Text style={styles.orgName}>{activeOrg?.name || 'Estancia Concordia'}</Text>
             <Text style={styles.orgRegion}>{activeOrg?.region || 'Concordia, Entre Ríos'}</Text>
           </View>
         </View>
@@ -85,7 +85,13 @@ export default function AccountScreen() {
           <View style={styles.diagContent}>
             <View style={styles.diagRow}>
               <Text style={styles.diagLabel}>User ID (UID):</Text>
-              <Text style={styles.diagValueMono}>{user?.id || 'demo-user-concordia-01'}</Text>
+              <Text
+                style={styles.diagValueMono}
+                numberOfLines={1}
+                ellipsizeMode="middle"
+              >
+                {user?.id || 'demo-user-concordia-01'}
+              </Text>
             </View>
             <View style={styles.diagRow}>
               <Text style={styles.diagLabel}>Rol Activo en RLS:</Text>
@@ -222,16 +228,22 @@ const styles = StyleSheet.create({
   diagLabel: {
     fontSize: 12,
     color: colors.textSecondary,
+    flexShrink: 0,
   },
   diagValue: {
     fontSize: 12,
     color: colors.textPrimary,
     fontWeight: '500',
+    textAlign: 'right',
+    flexShrink: 1,
   },
   diagValueMono: {
     fontSize: 11,
     fontFamily: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
     color: colors.textPrimary,
+    textAlign: 'right',
+    flex: 1,
+    marginLeft: 10,
   },
   logoutButton: {
     flexDirection: 'row',

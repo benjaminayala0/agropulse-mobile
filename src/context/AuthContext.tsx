@@ -101,9 +101,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signIn = async (email: string, password: string) => {
     const trimmedEmail = email.trim().toLowerCase();
 
-    // Autenticación con usuarios de prueba
-    const hasSupabaseUrl = Boolean(process.env.EXPO_PUBLIC_SUPABASE_URL && process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY);
-    if (!hasSupabaseUrl || trimmedEmail.endsWith('@agropulse.test')) {
+    if (isSupabaseConfigured) {
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: trimmedEmail,
+          password,
+        });
+        if (!error && data?.session) {
+          setSession(data.session);
+          setUser(data.session.user);
+          await loadUserOrganizations(data.session.user.id);
+          return { error: null };
+        }
+        if (error && !trimmedEmail.endsWith('@agropulse.test')) {
+          return { error: new Error(error.message) };
+        }
+      } catch (e: any) {
+        if (!trimmedEmail.endsWith('@agropulse.test')) {
+          return { error: e };
+        }
+      }
+    }
+
+    // Fallback de contingencia
+    if (trimmedEmail.endsWith('@agropulse.test')) {
       let role: UserRole = 'producer';
       if (trimmedEmail.includes('operador')) role = 'operator';
       if (trimmedEmail.includes('asesor')) role = 'advisor';
@@ -114,7 +135,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
       const demoOrg: Organization = {
         id: 'a0000000-0000-0000-0000-000000000001',
-        name: 'Estancia Didáctica Concordia',
+        name: 'Estancia Concordia',
         region: 'Concordia, Entre Ríos',
         created_at: new Date().toISOString(),
       };
@@ -126,15 +147,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return { error: null };
     }
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
-      return { error: error ? new Error(error.message) : null };
-    } catch (e: any) {
-      return { error: e };
-    }
+    return { error: new Error('Credenciales inválidas') };
   };
 
   const signOut = async () => {

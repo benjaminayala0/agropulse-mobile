@@ -21,7 +21,7 @@ const MOCK_PLOTS = [
     name: 'Costa 2',
     crop: 'Citrus (Mandarinas Criollas)',
     status: 'dry',
-    statusLabel: 'Seco (Riego Requerido)',
+    statusLabel: 'Seco (Riego)',
     statusColor: colors.statusDry,
     moisture: 18.2,
     temp: 26.1,
@@ -32,7 +32,7 @@ const MOCK_PLOTS = [
     name: 'Monte A',
     crop: 'Soja 1ra',
     status: 'stale',
-    statusLabel: 'Sin señal (>15m)',
+    statusLabel: 'Sin señal',
     statusColor: colors.statusStale,
     moisture: 28.0,
     temp: 21.0,
@@ -56,7 +56,7 @@ export default function PlotsScreen() {
             onPress={() => router.push(('/plot/' + item.id) as any)}
           >
             <View style={styles.cardHeader}>
-              <View>
+              <View style={styles.plotTitleBox}>
                 <Text style={styles.plotName}>{item.name}</Text>
                 <Text style={styles.cropText}>{item.crop}</Text>
               </View>
@@ -117,7 +117,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    gap: 8,
     marginBottom: 12,
+  },
+  plotTitleBox: {
+    flex: 1,
+    marginRight: 6,
   },
   plotName: {
     fontSize: 18,
@@ -132,11 +137,12 @@ const styles = StyleSheet.create({
   statusBadge: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 20,
     borderWidth: 1,
-    gap: 6,
+    gap: 5,
+    flexShrink: 0,
   },
   dot: {
     width: 8,
